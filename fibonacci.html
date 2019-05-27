@@ -31,10 +31,16 @@
 
 <body>
     <div class="container">
-
-        <p>fibonnachi: </p> <input type="number" id="number_n" value="1">
-        <button id="calculate" class="btn btn-primary">Calculate</button>
-        <p>f(n): <span id="answer"></span></p>
+        <h3>f(n): <span id="answer"></span></h3>
+        <div class="form-row align-items-center">
+            <div class="col-auto">
+                <label class="sr-only" for="number_n">fibonnachi Number</label>
+                <input id="number_n" type="number" class="form-control mb-2" placeholder="Number" value="1">
+            </div>
+            <div class="col-auto">
+                <button id="calculate" class="btn btn-primary mb-2">Calculate</button>
+            </div>
+        </div>
     </div>
 
     <script>
