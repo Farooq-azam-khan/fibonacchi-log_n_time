@@ -32,7 +32,7 @@
 <body>
     <div class="container">
 
-        <p>fibonnachi: </p> <input type="text" id="number_n" value="1">
+        <p>fibonnachi: </p> <input type="number" id="number_n" value="1">
         <button id="calculate" class="btn btn-primary">Calculate</button>
         <p>f(n): <span id="answer"></span></p>
     </div>
@@ -40,12 +40,23 @@
     <script>
         function insertFib_n() {
             const n = parseInt(document.getElementById('number_n').value)
-            document.getElementById('answer').innerHTML = log_fib_n(n)
+            if (typeof n === "number") {
+                if (n >= 0) {
+                    document.getElementById('answer').innerHTML = log_fib_n(n)
+                } else {
+                    document.getElementById('answer').innerHTML = "INVALID INPUT"
+                }
+            }
         }
+
+        document.getElementById('number_n')
+            .addEventListener('keypress', function () {
+                insertFib_n();
+            });
+
         document.getElementById('calculate')
             .addEventListener('click', function () {
                 insertFib_n();
-
             });
 
         function naive_fib_n(n) {
