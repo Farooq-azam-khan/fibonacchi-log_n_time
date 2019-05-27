@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <!-- redux -->
+    <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+
+    <title>Starter Template</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <p>fibonnachi: </p> <input type="text" id="number_n" value="1">
+        <button id="calculate" class="btn btn-primary">Calculate</button>
+        <p>f(n): <span id="answer"></span></p>
+    </div>
+
+    <script>
+        document.getElementById('calculate')
+            .addEventListener('click', function () {
+                const n = parseInt(document.getElementById('number_n').value)
+                document.getElementById('answer').innerHTML = dynamic_fib_n(n)
+            });
+
+        function naive_fib_n(n) {
+            if (n === 1 || n == 2) { return 1; }
+            else { return naive_fib_n(n - 1) + naive_fib_n(n - 2); }
+        }
+
+
+        // TODO: fix
+        function dynamic_fib_n(n) {
+            mem = new Array(n);
+            const fib_n = function (n, mem) {
+                if (mem[n] != undefined) {
+                    return mem[n];
+                }
+                if (n === 1 || n === 2) {
+                    mem[n] = 1;
+                    return 1;
+                }
+                const fn1 = helper(n - 1, mem);
+                const fn2 = helper(n - 2, mem);
+                if (mem[n - 1] === undefined) {
+                    mem[n - 1] = fn1;
+                }
+                if (mem[n - 2] === undefined) {
+                    mem[n - 2] = fn2;
+                }
+                mem[n] = fn1 + fn2;
+                return fn1 + fn2;
+            }
+
+            return fib_n(n, mem);
+        }
+
+        // TODO: fix
+        function log_fib_n(n) {
+            let fib_matrix = [
+                [1, 1],
+                [1, 0]
+            ];
+            /*
+            [a, b] [e, f] = [a*e+b*g, a*f+b*h]
+            [c, d] [g, h]   [c*e+d*g, c*f+d*h]
+            */
+            const e = fib_matrix[0][0];
+            const f = fib_matrix[0][1];
+            const g = fib_matrix[1][0];
+            const h = fib_matrix[1][1];
+            let nth_fib_matrix = fib_matrix;
+
+            for (let i = 0; i < n - 1; i++) {
+                let a = nth_fib_matrix[0][0]
+                let b = nth_fib_matrix[0][1]
+                let c = nth_fib_matrix[1][0]
+                let d = nth_fib_matrix[1][1]
+
+                a = a * e + b * g;
+                b = a * f + b * h;
+                c = c * e + d * g;
+                d = c * f + d * h;
+
+                nth_fib_matrix[0][0] = a;
+                nth_fib_matrix[0][1] = b;
+                nth_fib_matrix[1][0] = c;
+                nth_fib_matrix[1][1] = d;
+
+
+            }
+
+            return nth_fib_matrix[0][0];
+
+        }
+
+    </script>
+</body>
+
+</html>
